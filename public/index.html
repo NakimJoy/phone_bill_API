@@ -16,22 +16,6 @@
         <h1>Total Phone Bill Price Plans</h1>
         <p style="font-family: cursive;">Discover your total savings with our tailored phone plans!</p>
 
-        <!-- <div x-data="phoneBillWidget">
-            <form @submit.prevent="calculateBill">
-                <select x-model="selectedPlan">
-                    <option value="">Price Plan</option>
-                    <template x-for="plan in plans" :key="plan.id">
-                        <option :value="plan.plan_name" x-text="plan.plan_name"></option>
-                    </template>
-                </select>
-                <input type="text" x-model="actions" placeholder="call, sms, call">
-                <button type="submit">Calculate Total</button>
-            </form>
-
-            <div x-text="total"></div>
-        </div>
-    </div> -->
-
         <div x-data="phoneBillWidget">
             <form @submit.prevent="calculateBill">
                 <select x-model="selectedPlan">
@@ -77,14 +61,14 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('totalPhoneBill', () => ({
                 header: "Xinwelo's Best Price Plan App",
-                init() {}
+                init() { }
             }));
 
             Alpine.data('phoneBillWidget', () => ({
                 plans: [
-                    { id: 1, plan_name: 'sms 101' },
-                    { id: 2, plan_name: 'call 101' },
-                    { id: 3, plan_name: 'call 201' }
+                    { id: 1, plan_name: 'basic' },
+                    { id: 2, plan_name: 'premium' },
+                    { id: 3, plan_name: 'business' }
                 ],
                 selectedPlan: '',
                 actions: '',
