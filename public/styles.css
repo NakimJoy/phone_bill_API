@@ -42,9 +42,40 @@ button {
     font-size: 1em;
     cursor: pointer;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #e6b800;
+    background-color: #dfc974;
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #ffcc00; /* Golden color for headers */
+    color: #000;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+table tr:hover {
+    background-color: #e6e6e6; /* Light gray on hover for rows */
+}
+
+table td {
+    font-size: 0.9em;
 }
