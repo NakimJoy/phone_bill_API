@@ -1,11 +1,10 @@
 import express from 'express';
 import * as sqlite from 'sqlite';
 import sqlite3 from 'sqlite3';
-const app = express();
 
+const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Serve static files from the 'public' directory
 app.use(express.static('public'));
 app.use(express.json());
 
@@ -19,30 +18,6 @@ const setupDatabase = async () => {
     await db.migrate({ migrationsPath: './migrations' });
 
     // Define API Endpoints
-    app.post('/api/phonebill', async (req, res) => {
-        const { price_plan, actions } = req.body;
-
-        try {
-            const plan = await db.get('SELECT * FROM price_plan WHERE plan_name = ?', [price_plan]);
-
-            if (!plan) {
-                return res.json({ total: '0.00' });  // Default to 0.00 if no plan is found
-            }
-
-            const actionsArray = actions.split(', ');
-            let total = 0;
-
-            actionsArray.forEach(action => {
-                if (action === 'sms') total += plan.sms_price;
-                if (action === 'call') total += plan.call_price;
-            });
-
-            res.json({ total: total.toFixed(2) });
-        } catch (error) {
-            res.json({ total: '0.00' });
-        }
-    });
-
     app.get('/api/price_plans', async (req, res) => {
         try {
             const plans = await db.all('SELECT * FROM price_plan');
@@ -71,17 +46,6 @@ const setupDatabase = async () => {
             res.json({ message: 'Price plan updated successfully' });
         } catch (error) {
             res.status(500).json({ error: 'An error occurred while updating the price plan' });
-        }
-    });
-
-    app.post('/api/price_plan/delete', async (req, res) => {
-        const { id } = req.body;
-
-        try {
-            await db.run('DELETE FROM price_plan WHERE id = ?', [id]);
-            res.json({ message: 'Price plan deleted successfully' });
-        } catch (error) {
-            res.status(500).json({ error: 'An error occurred while deleting the price plan' });
         }
     });
 
