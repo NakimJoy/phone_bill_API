@@ -13,24 +13,113 @@
 <body>
     <div class="container" x-data="totalPhoneBill">
         <h5 x-text="header"></h5>
-        <h1>Total phone bill price plans</h1>
-        <p>Calculate your total phone bill.</p>
+        <h1>Total Phone Bill Price Plans</h1>
+        <p style="font-family: cursive;">Discover your total savings with our tailored phone plans!</p>
 
-        <div x-data="phoneBillWidget">
+        <!-- <div x-data="phoneBillWidget">
             <form @submit.prevent="calculateBill">
                 <select x-model="selectedPlan">
-                    <option value="">Select a plan</option>
+                    <option value="">Price Plan</option>
                     <template x-for="plan in plans" :key="plan.id">
                         <option :value="plan.plan_name" x-text="plan.plan_name"></option>
                     </template>
                 </select>
                 <input type="text" x-model="actions" placeholder="call, sms, call">
-                <button type="submit">Calculate</button>
+                <button type="submit">Calculate Total</button>
             </form>
 
             <div x-text="total"></div>
         </div>
+    </div> -->
+
+        <div x-data="phoneBillWidget">
+            <form @submit.prevent="calculateBill">
+                <select x-model="selectedPlan">
+                    <option value="">Price Plan</option>
+                    <template x-for="plan in plans" :key="plan.id">
+                        <option :value="plan.plan_name" x-text="plan.plan_name"></option>
+                    </template>
+                </select>
+                <input type="text" x-model="actions" placeholder="call, sms, call">
+                <button type="submit">Calculate Total</button>
+            </form>
+
+            <div x-text="total"></div>
+
+            <!-- Historical Orders Table -->
+            <h2>Historical Orders</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Plan Name</th>
+                        <th>Actions</th>
+                        <th>Total</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(order, index) in orderHistory" :key="index">
+                        <tr>
+                            <td x-text="order.plan_name"></td>
+                            <td x-text="order.actions"></td>
+                            <td x-text="order.total"></td>
+                            <td>
+                                <button @click="deleteOrder(index)">Delete</button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('totalPhoneBill', () => ({
+                header: "Xinwelo's Best Price Plan App",
+                init() {}
+            }));
+
+            Alpine.data('phoneBillWidget', () => ({
+                plans: [
+                    { id: 1, plan_name: 'sms 101' },
+                    { id: 2, plan_name: 'call 101' },
+                    { id: 3, plan_name: 'call 201' }
+                ],
+                selectedPlan: '',
+                actions: '',
+                total: '',
+                orderHistory: [],
+
+                async init() {
+                    // Fetch plans from the API if needed
+                },
+
+                async calculateBill() {
+                    // Example calculation logic
+                    this.total = 0;
+                    const plan = this.plans.find(p => p.plan_name === this.selectedPlan);
+                    if (!plan) return;
+
+                    const actionsArray = this.actions.split(', ');
+                    actionsArray.forEach(action => {
+                        if (action === 'sms') this.total += plan.sms_price;
+                        if (action === 'call') this.total += plan.call_price;
+                    });
+
+                    this.orderHistory.push({
+                        plan_name: this.selectedPlan,
+                        actions: this.actions,
+                        total: this.total.toFixed(2)
+                    });
+                },
+
+                deleteOrder(index) {
+                    this.orderHistory.splice(index, 1);
+                }
+            }));
+        });
+    </script>
 </body>
 
 </html>
