@@ -1,0 +1,50 @@
+/* Full-cover background */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://c8.alamy.com/comp/P8W8MW/doodle-smartphone-technology-and-digitals-apps-background-vector-illustration-P8W8MW.jpg');
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Classic styled container */
+.container {
+    background-color: rgba(241, 236, 236, 0.7); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Headers and text */
+h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    color: #ffcc00; /* Golden color for classic style */
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+/* Buttons */
+button {
+    background-color: #ffcc00; /* Golden color */
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e6b800;
+}

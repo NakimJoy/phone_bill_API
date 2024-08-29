@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Bill Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="./app.js"></script>
+</head>
+
+<body>
+    <div class="container" x-data="totalPhoneBill">
+        <h5 x-text="header"></h5>
+        <h1>Total phone bill price plans</h1>
+        <p>Calculate your total phone bill.</p>
+
+        <div x-data="phoneBillWidget">
+            <form @submit.prevent="calculateBill">
+                <select x-model="selectedPlan">
+                    <option value="">Select a plan</option>
+                    <template x-for="plan in plans" :key="plan.id">
+                        <option :value="plan.plan_name" x-text="plan.plan_name"></option>
+                    </template>
+                </select>
+                <input type="text" x-model="actions" placeholder="call, sms, call">
+                <button type="submit">Calculate</button>
+            </form>
+
+            <div x-text="total"></div>
+        </div>
+    </div>
+</body>
+
+</html>
