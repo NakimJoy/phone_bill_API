@@ -7,7 +7,8 @@
     <title>Phone Bill Calculator</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="./app.js"></script>
+    <script defer src="/app.js"></script>
+
 </head>
 
 <body>
@@ -66,9 +67,9 @@
 
             Alpine.data('phoneBillWidget', () => ({
                 plans: [
-                    { id: 1, plan_name: 'basic' },
-                    { id: 2, plan_name: 'premium' },
-                    { id: 3, plan_name: 'business' }
+                    { id: 1, plan_name: 'sms 101' },
+                    { id: 2, plan_name: 'call 101' },
+                    { id: 3, plan_name: 'premium' }
                 ],
                 selectedPlan: '',
                 actions: '',

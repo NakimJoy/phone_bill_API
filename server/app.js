@@ -5,9 +5,9 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+// Serve static files from the 'public' directory
 app.use(express.static('public'));
 app.use(express.json());
-
 
 // Setup SQLite Database and Migrations
 const setupDatabase = async () => {
@@ -26,7 +26,7 @@ const setupDatabase = async () => {
             const plan = await db.get('SELECT * FROM price_plan WHERE plan_name = ?', [price_plan]);
 
             if (!plan) {
-                return res.status(404).json({ error: 'Price plan not found' });
+                return res.json({ total: '0.00' });  // Default to 0.00 if no plan is found
             }
 
             const actionsArray = actions.split(', ');
@@ -39,7 +39,7 @@ const setupDatabase = async () => {
 
             res.json({ total: total.toFixed(2) });
         } catch (error) {
-            res.status(500).json({ error: 'An error occurred while calculating the bill' });
+            res.json({ total: '0.00' });
         }
     });
 
@@ -87,7 +87,6 @@ const setupDatabase = async () => {
 
     // Start Express Server
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
 };
 
 // Initialize Database and Server
